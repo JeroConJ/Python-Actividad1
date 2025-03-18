@@ -19,6 +19,7 @@ answers = [("size()", "len()", "length()", "count()"),
 # Índice de la respuesta correcta para cada pregunta, el el mismo orden que las preguntas
 correct_answers_index = [1, 2, 0, 3, 1]
 respuestas_validas = ["1", "2", "3", "4"]
+puntaje = 0
 
 # El usuario deberá contestar 3 preguntas
 for _ in range(3):
@@ -33,17 +34,16 @@ for _ in range(3):
     # El usuario tiene 2 intentos para responder correctamente
     for intento in range(2):
         user_answer = input("Respuesta: ")
-        # Se verifica si la respuesta es correcta
-
-        if user_answer in respuestas_validas:
-            user_answer = int(user_answer) - 1
-            print(user_answer)
+        if user_answer in respuestas_validas:        #Verifica si la respuesta es valida (numero dedl 1 al 4)
+            user_answer = int(user_answer) - 1  
             if user_answer == correct_answers_index[question_index]:
                 print("¡Correcto!")
+                puntaje += 1
                 break
             else:
-                if intento == 0:
+                if intento == 0:                    #Si falla una vez, no muestra la respuesta correcta
                     print("Incorrecto, trate de nuevo")
+                    puntaje -= 0.5
         else:
             print("Respuesta no valida")
             exit(1)
@@ -52,6 +52,8 @@ for _ in range(3):
         # se muestra la respuesta correcta
         print("Incorrecto. La respuesta correcta es:")
         print(answers[question_index][correct_answers_index[question_index]])
+        puntaje -= 0.5
 
+print(f'Puntaje: {puntaje}')
 # Se imprime un blanco al final de la pregunta
 print()
